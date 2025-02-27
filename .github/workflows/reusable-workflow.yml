@@ -1,5 +1,5 @@
-name: Resuable Workflow for Deployment in SYN 
-run-name: Release to SYN
+name: Resuable Workflow for Deployment in SYN-CLFTST01  
+run-name: Release to SYN-CLFTST01
 on:
   workflow_call:
 
