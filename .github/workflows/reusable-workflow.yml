@@ -1,11 +1,10 @@
 name: Resuable Workflow for Deployment in SYN 
 run-name: Release to SYN
 on:
-  push:
-    branches:
-      - "main"
+  workflow_call:
+
 jobs:
-  deploy:
+  reusable_workflow_job:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
