@@ -42,7 +42,6 @@ jobs:
 
          echo 'Login BTP'
 
-         cf login -a https://api.cf.us20.hana.ondemand.com -o Suncor_Energy_Services_Inc_Attn:_Accounts_Payable_clfdev01 -s DEV --sso-passcode $cf_password
-
+         cf login -a https://api.cf.us20.hana.ondemand.com -u $cf_user -p $cf_password -o Suncor_Energy_Services_Inc_Attn:_Accounts_Payable_clfdev01 -s DEV
          echo 'Deploy the app'
          cf deploy mta_archives/app.mtar -f
