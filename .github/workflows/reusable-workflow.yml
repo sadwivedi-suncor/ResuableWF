@@ -1,5 +1,5 @@
-name: Resuable Workflow for Deployment in SYN-CLFTST01  
-run-name: Release to SYN-CLFTST01 
+name: Resuable Workflow for Deployment in SYN 
+run-name: Release to SYN
 on:
   workflow_call:
 
@@ -12,8 +12,7 @@ jobs:
         with:
           node-version: '20'
       - name: Make the script files executable
-        run: chmod +x script.sh
-        shell: bash
+        run: chmod +x ./.github/workflows/script.sh
       - name: Run a script
         env:
           cf_user: ${{ secrets.CF_USER }}
@@ -21,5 +20,4 @@ jobs:
           cf_api_url: ${{vars.CF_API_URL}}
           cf_org: ${{vars.CF_ORG}}
           cf_space: ${{vars.CF_SPACE}}
-        run: script.sh
-        shell: bash
+        run: ./.github/workflows/script.sh
