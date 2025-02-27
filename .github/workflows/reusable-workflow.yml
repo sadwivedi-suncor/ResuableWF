@@ -11,8 +11,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Make the script files executable
-        run: chmod +x ./.github/workflows/scripts/script.sh
+      #- name: Make the script files executable
+        #run: chmod +x ./.github/workflows/scripts/script.sh
       - name: Run a script
         env:
           cf_user: ${{ secrets.CF_USER }}
@@ -20,4 +20,29 @@ jobs:
           cf_api_url: ${{vars.CF_API_URL}}
           cf_org: ${{vars.CF_ORG}}
           cf_space: ${{vars.CF_SPACE}}
-        run: ./.github/workflows/scripts/script.sh
+        #run: ./.github/workflows/scripts/script.sh
+        run: |
+         echo "Running bash commands directly in the workflow"
+         echo 'Get cf Client'
+         wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+         echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+         sudo apt-get update
+         sudo apt-get install cf8-cli
+
+         echo 'Check Installation'
+         cf -v
+
+         echo 'Install Plugins'
+         cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
+         cf install-plugin multiapps -f
+         cf install-plugin html5-plugin -f
+
+         echo 'Build the project'
+         npx mbt build --mtar app.mtar
+
+         echo 'Login BTP'
+
+         cf login -a https://api.cf.us20.hana.ondemand.com -o Suncor_Energy_Services_Inc_Attn:_Accounts_Payable_clfdev01 -s DEV --sso-passcode $cf_password
+
+         echo 'Deploy the app'
+         cf deploy mta_archives/app.mtar -f
