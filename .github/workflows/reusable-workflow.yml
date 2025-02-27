@@ -40,9 +40,9 @@ jobs:
          echo 'Build the project'
          npx mbt build --mtar app.mtar
 
-         echo 'Login BTP'
+         echo '===Login BTP=='
          echo "$cf_user"
 
-         cf login -a https://api.cf.us20.hana.ondemand.com -u "$cf_user" -p "$cf_password" -o Suncor_Energy_Services_Inc_Attn:_Accounts_Payable_clfdev01 -s DEV
+         cf login -a https://api.cf.us20.hana.ondemand.com -u mkhizer@suncor.com -p 'MyBabaJaan7867***' -o Suncor_Energy_Services_Inc_Attn:_Accounts_Payable_clfdev01 -s DEV
          echo 'Deploy the app'
          cf deploy mta_archives/app.mtar -f
